@@ -31,3 +31,5 @@ cd ..
 CeWL/cewl.rb $domainName
 karma search $domainName --domain 
 theharvester -b all -d $domainName 
+##Include Dig##
+##Include Sublister##
