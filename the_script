@@ -1,0 +1,33 @@
+mkdir OSINT_SCRIPT
+cd OSINT_SCRIPT
+apt-get install python3-pip -y
+sudo apt install tor python3 python3-pip -y
+sudo -H pip3 install git+https://github.com/decoxviii/karma.git
+git clone https://github.com/m8r0wn/crosslinked
+cd crosslinked
+pip3 install -r requirements.txt
+cd ..
+curl -s https://raw.githubusercontent.com/killswitch-GUI/SimplyEmail/master/setup/oneline-setup.sh | bash
+git clone https://github.com/digininja/CeWL
+gem install mime-types
+gem install mini_exiftool
+gem install rubyzip
+gem install spider
+service tor start
+
+echo "--------------------------------------------------------"
+echo "What is the name of the domain? Press ENTER when done."
+echo "--------------------------------------------------------"
+read domainName
+echo "The domain name is $domainName"
+cd crosslinked
+python3 crosslinked.py -f '$domainName\{f}{last}' $domainName && cat names.txt
+cd ..
+whois $domainName  
+dnsenum $domainName 
+cd SimplyEmail
+./SimplyEmail.py -e $domainName -all  
+cd ..
+CeWL/cewl.rb $domainName  >> Enum.txt
+karma search $domainName --domain 
+theharvester -b all -d $domainName 
