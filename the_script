@@ -30,7 +30,7 @@ cd SimplyEmail
 ./SimplyEmail.py -e $domainName -all  --json simply_email.txt
 mv simply_email.txt ../$domainName
 cd ..
-CeWL/cewl.rb $domainName | tee $domainName/whois.txt
+CeWL/cewl.rb $domainName | tee $domainName/CeWL.txt
 karma search $domainName --domain -o $domainName/breached_accounts.txt
 theharvester -d $domainName -b all -f $domainName/theharvesterresults.html
 ##Include Dig##
