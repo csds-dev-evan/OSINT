@@ -20,16 +20,18 @@ echo "What is the name of the domain? Press ENTER when done."
 echo "--------------------------------------------------------"
 read domainName
 echo "The domain name is $domainName"
+mkdir $domainName
 cd crosslinked
-python3 crosslinked.py -f '$domainName\{f}{last}' $domainName && cat names.txt
+python3 crosslinked.py -f '$domainName\{f}{last}' $domainName && mv names.txt ../$domainName/Linked_In_Enumeration.txt
 cd ..
-whois $domainName  
-dnsenum $domainName 
+whois $domainName | tee $domainName/whois.txt
+dnsenum $domainName | tee $domainName/dnsenum.txt
 cd SimplyEmail
-./SimplyEmail.py -e $domainName -all  
+./SimplyEmail.py -e $domainName -all  --json simply_email.txt
+mv simply_email.txt ../$domainName
 cd ..
-CeWL/cewl.rb $domainName
-karma search $domainName --domain 
-theharvester -b all -d $domainName 
+CeWL/cewl.rb $domainName | tee $domainName/whois.txt
+karma search $domainName --domain -o $domainName/breached_accounts.txt
+theharvester -d $domainName -b all -f $domainName/theharvesterresults.html
 ##Include Dig##
 ##Include Sublister##
