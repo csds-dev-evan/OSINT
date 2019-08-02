@@ -28,6 +28,6 @@ dnsenum $domainName
 cd SimplyEmail
 ./SimplyEmail.py -e $domainName -all  
 cd ..
-CeWL/cewl.rb $domainName  >> Enum.txt
+CeWL/cewl.rb $domainName
 karma search $domainName --domain 
 theharvester -b all -d $domainName 
